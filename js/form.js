@@ -1,32 +1,27 @@
+var nodemailer = require('nodemailer');
 
-const nodemailer = require('nodemailer')
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'formposta009@gmail.com',
+    pass: '12345678qwertyui'
+  }
+});
 
-const transporter = nodemailer.createTransport({
-    service: "deadpool321214@gmail.com",
-    port:587,
-    secure:false,
-    requireTLS:true,
-    auth: {
-        user: 'formposta009@gmail.com',
-        pass: '12345678qwertyui'
-    },
-})
+var mailOptions = {
+  from: 'formposta009@gmail.com',
+  to: 'deadpool321214@gmail.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
 
-let option = await transporter.sendMail({
-    from: 'formposta009@gmail.com',
-    to: 'deadpool321214@gmail.com',
-    subject: 'Message from Node js',
-    text: 'This message was sent from Node js server.',
-    html: '<b>fdfdfdfds;fdsfdfd</b>',
-})
-
-transporter.sendMail(option, function (err, info) {
-    if (err) {
-        console.log(err);
-        return
-    }
-    console.log("Sent" + info.response);
-})
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
 
 // document.querySelector("form").addEventListener("click", function (event) {
 //     event.preventDefault()
